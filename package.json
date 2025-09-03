@@ -1,5 +1,5 @@
 {
-  "name": "astro-ultimate-tutorial",
+  "name": "astro-storyblok-finance-starter",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -14,8 +14,8 @@
     "@tailwindcss/typography": "^0.5.16",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "astro": "5.12.9",
-    "tailwindcss": "^4.1.11",
-    "@tailwindcss/vite": "^4.1.11",
+    "tailwindcss": "^4.1.12",
+    "@tailwindcss/vite": "^4.1.12",
     "vite": "^5.2.11",
     "axios": "^1.11.0",
     "@astrojs/netlify": "^6.5.9",
