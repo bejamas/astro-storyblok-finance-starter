@@ -1,15 +1,18 @@
 import { defineConfig } from 'astro/config'
 import tailwindcss from '@tailwindcss/vite'
 import storyblok from '@storyblok/astro'
+import netlify from '@astrojs/netlify'
 import { loadEnv } from 'vite'
-import basicSsl from '@vitejs/plugin-basic-ssl'
+import mkcert from 'vite-plugin-mkcert'
 const env = loadEnv('', process.cwd(), 'STORYBLOK')
 
-// https://astro.build/config
 export default defineConfig({
+  output: 'server',
+  adapter: netlify(),
   integrations: [
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
+      livePreview: true,
       apiOptions: {
         region: '',
       },
@@ -38,7 +41,7 @@ export default defineConfig({
   ],
   vite: {
     plugins: [
-      basicSsl(),
+      mkcert(),
       tailwindcss()
     ],
     server: {

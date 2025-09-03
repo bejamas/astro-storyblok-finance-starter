@@ -17,6 +17,8 @@
     "tailwindcss": "^4.1.11",
     "@tailwindcss/vite": "^4.1.11",
     "vite": "^5.2.11",
-    "axios": "^1.11.0"
+    "axios": "^1.11.0",
+    "@astrojs/netlify": "^6.5.9",
+    "vite-plugin-mkcert": "^1.17.8"
   }
 }
