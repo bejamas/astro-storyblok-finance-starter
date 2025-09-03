@@ -14,8 +14,8 @@ const adapter = undefined
 
 
 if (!is_local_dev && is_preview) {
-    output = 'server';
-    adapter = netlify();
+    output = 'server'
+    adapter = netlify()
 }
 
 export default defineConfig({
