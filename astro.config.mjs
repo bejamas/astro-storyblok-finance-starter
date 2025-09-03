@@ -4,18 +4,18 @@ import storyblok from '@storyblok/astro'
 import { loadEnv } from 'vite'
 import mkcert from 'vite-plugin-mkcert'
 import netlify from '@astrojs/netlify';
+import isPreview from './src/utils/isPreview'
+
 const env = loadEnv('', process.cwd(), '')
-
-const is_preview = env.IS_PREVIEW === 'yes'
 const is_local_dev = import.meta.env.DEV
-
 let output = 'static'
 let adapter = undefined
 
+console.log(isPreview())
 
-if (!is_local_dev && is_preview) {
-    output = 'server'
-    adapter = netlify()
+if (!is_local_dev && isPreview()) {
+  output = 'server'
+  adapter = netlify()
 }
 
 export default defineConfig({
@@ -25,7 +25,8 @@ export default defineConfig({
   integrations: [
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
-      livePreview: true,
+      bridge: isPreview(),
+      livePreview: isPreview(),
       apiOptions: {
         region: '',
       },

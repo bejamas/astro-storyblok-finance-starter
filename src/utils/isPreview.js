@@ -1,3 +1,6 @@
+import { loadEnv } from 'vite'
+const env = loadEnv('', process.cwd(), '')
+
 export default function isPreview() {
-  return import.meta.env.IS_PREVIEW === 'yes'
+  return env.IS_PREVIEW === 'yes'
 }
