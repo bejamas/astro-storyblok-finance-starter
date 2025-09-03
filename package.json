@@ -18,9 +18,7 @@
     "axios": "^1.11.0",
     "tailwindcss": "^4.1.12",
     "vite": "^5.2.11",
-    "vite-plugin-mkcert": "^1.17.8"
-  },
-  "dependencies": {
+    "vite-plugin-mkcert": "^1.17.8",
     "@astrojs/netlify": "^6.5.9",
     "postcss-import": "^16.1.1"
   }
