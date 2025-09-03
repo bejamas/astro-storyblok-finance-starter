@@ -7,9 +7,16 @@ import netlify from '@astrojs/netlify';
 const env = loadEnv('', process.cwd(), '')
 
 const is_preview = env.IS_PREVIEW === 'yes'
+const is_local_dev = import.meta.env.DEV
 
-const output = is_preview ? 'server' : 'static'
-const adapter = is_preview ? netlify() : undefined
+const output = 'static'
+const adapter = undefined
+
+
+if (!is_local_dev && is_preview) {
+    output = 'server';
+    adapter = netlify();
+}
 
 export default defineConfig({
   output: output,
