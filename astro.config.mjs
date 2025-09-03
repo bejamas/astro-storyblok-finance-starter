@@ -9,8 +9,8 @@ const env = loadEnv('', process.cwd(), '')
 const is_preview = env.IS_PREVIEW === 'yes'
 const is_local_dev = import.meta.env.DEV
 
-const output = 'static'
-const adapter = undefined
+let output = 'static'
+let adapter = undefined
 
 
 if (!is_local_dev && is_preview) {
