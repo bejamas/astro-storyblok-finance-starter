@@ -21,5 +21,9 @@
     "vite-plugin-mkcert": "^1.17.8",
     "@astrojs/netlify": "^6.5.9",
     "postcss-import": "^16.1.1"
+  },
+  "dependencies": {
+    "@netlify/dev": "^4.5.8",
+    "@netlify/vite-plugin": "^2.5.8"
   }
 }

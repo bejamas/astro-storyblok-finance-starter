@@ -4,13 +4,12 @@ import storyblok from '@storyblok/astro'
 import { loadEnv } from 'vite'
 import mkcert from 'vite-plugin-mkcert'
 import netlify from '@astrojs/netlify';
-const env = loadEnv('', process.cwd(), 'STORYBLOK')
+const env = loadEnv('', process.cwd(), '')
 
 const is_preview = env.IS_PREVIEW === 'yes'
 
 const output = is_preview ? 'server' : 'static'
 const adapter = is_preview ? netlify() : undefined
-
 
 export default defineConfig({
   output: output,
