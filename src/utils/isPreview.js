@@ -1,6 +1,5 @@
-import { loadEnv } from 'vite'
-const env = loadEnv('', process.cwd(), '')
+const is_preview = import.meta.env.STORYBLOK_IS_PREVIEW
 
 export default function isPreview() {
-  return env.IS_PREVIEW === 'yes'
+  return is_preview === 'yes'
 }

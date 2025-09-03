@@ -1,6 +1,6 @@
 import { getLanguages } from './i18n'
 const languages = await getLanguages()
-const DEFAULT_LANG = import.meta.env.DEFAULT_LANG
+const DEFAULT_LANG = import.meta.env.STORYBLOK_DEFAULT_LANG
 
 export default function parseUrl(url) {
   //converting the current url to an array based on '/'

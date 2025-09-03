@@ -1,5 +1,5 @@
 import { getLanguagesCode } from '../utils/api'
-const DEFAULT_LANG = import.meta.env.DEFAULT_LANG
+const DEFAULT_LANG = import.meta.env.STORYBLOK_DEFAULT_LANG
 
 const LANGUAGE_LABELS = {
   en: 'English',

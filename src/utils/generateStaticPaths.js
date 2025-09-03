@@ -1,6 +1,6 @@
 import { getLinks } from '../utils/api'
 import { getLanguages } from './i18n'
-const DEFAULT_LANG = import.meta.env.DEFAULT_LANG
+const DEFAULT_LANG = import.meta.env.STORYBLOK_DEFAULT_LANG
 const links = await getLinks()
 const languages = await getLanguages()
 

@@ -3,17 +3,16 @@ import tailwindcss from '@tailwindcss/vite'
 import storyblok from '@storyblok/astro'
 import { loadEnv } from 'vite'
 import mkcert from 'vite-plugin-mkcert'
-import netlify from '@astrojs/netlify';
-import isPreview from './src/utils/isPreview'
+import netlify from '@astrojs/netlify'
 
-const env = loadEnv('', process.cwd(), '')
-const is_local_dev = import.meta.env.DEV
+const env = loadEnv('', process.cwd(), 'STORYBLOK')
+
+let is_preview
 let output = 'static'
 let adapter = undefined
 
-console.log(isPreview())
-
-if (!is_local_dev && isPreview()) {
+if (env.STORYBLOK_IS_PREVIEW === 'yes') {
+  is_preview = true
   output = 'server'
   adapter = netlify()
 }
@@ -25,10 +24,10 @@ export default defineConfig({
   integrations: [
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
-      bridge: isPreview(),
-      livePreview: isPreview(),
+      bridge: is_preview,
+      livePreview: is_preview,
       apiOptions: {
-        region: '',
+        region: 'eu',
       },
       components: {
         page: 'storyblok/Page',
