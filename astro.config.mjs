@@ -6,8 +6,15 @@ import mkcert from 'vite-plugin-mkcert'
 import netlify from '@astrojs/netlify';
 const env = loadEnv('', process.cwd(), 'STORYBLOK')
 
+const is_preview = env.IS_PREVIEW === 'yes'
+
+const output = is_preview ? 'server' : 'static'
+const adapter = is_preview ? netlify() : undefined
+
+
 export default defineConfig({
-  output: 'server',
+  output: output,
+  adapter: adapter,
 
   integrations: [
     storyblok({
@@ -37,6 +44,15 @@ export default defineConfig({
     }),
   ],
 
+  image: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'a.storyblok.com',
+      },
+    ],
+  },
+
   vite: {
     plugins: [
       mkcert(),
@@ -45,7 +61,5 @@ export default defineConfig({
     server: {
       https: true,
     },
-  },
-
-  adapter: netlify(),
+  }
 })
