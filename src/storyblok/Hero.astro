@@ -1,7 +1,6 @@
 ---
 import { storyblokEditable } from '@storyblok/astro'
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
-import { Image } from 'astro:assets'
 const { blok } = Astro.props
 ---
 
@@ -29,15 +28,16 @@ const { blok } = Astro.props
       />
     </picture>
 
-    <div class="relative z-20 w-full pt-10">
-      <div class="max-w-[624px] mx-auto mb-28 px-6 flex flex-col gap-y-8 justify-center items-center">
-        <div class="max-w-[624px] text-center">
+    <div class="relative z-20 w-full group-[.is-test]:lg:bg-black pt-10">
+
+      <div class="max-w-[624px] group-[.is-test]:max-w-[1016px] mx-auto mb-28 group-[.is-test]:mb-0 px-6 flex flex-col gap-y-8 justify-center items-center group-[.is-test]:lg:flex-row group-[.is-test]:lg:justify-between">
+        <div class="max-w-[624px] text-center group-[.is-test]:lg:text-left">
           <h2 class="text-white text-3xl md:text-5xl leading-[110%] -tracking-[1.92px] font-adamina mb-4">
             {blok.headline}
           </h2>
 
           {blok.lead && (
-            <p class="text-white leading-[150%] -tracking-[0.32px]">
+            <p class="text-white leading-[150%] -tracking-[0.32px] group-[.is-test]:lg:opacity-64">
               {blok.lead}
             </p>
           )}
