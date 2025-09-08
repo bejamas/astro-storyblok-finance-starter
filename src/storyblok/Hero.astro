@@ -6,8 +6,29 @@ const { blok } = Astro.props
 
 <section {...storyblokEditable(blok)} class="group" data-posthog>
 
-  <div class="min-h-[82vh] flex items-end pt-40 bg-no-repeat bg-cover bg-top bg-black/55 bg-blend-multiply" style={`background-image: ${blok.image.filename ? `url('${blok.image.filename}/m/1440x0/filters:quality(80)')` : ''}`}>
-    <div class="w-full group-[.is-test]:lg:bg-black pt-10">
+  <div class="relative min-h-[82vh] flex items-end pt-40 before:absolute before:inset-0 before:bg-black/55 before:mix-blend-multiply before:z-10">
+
+    <picture class="absolute z-0 w-full h-full object-cover object-top">
+      <source
+        srcset={`${blok.image.filename}/m/640x685/`}
+        media="(max-width: 640px)"
+      />
+      <source
+        srcset={`${blok.image.filename}/m/1024x685/`}
+        media="(max-width: 1024px)"
+      />
+      <source
+        srcset={`${blok.image.filename}/m/1440x685/`}
+        media="(max-width: 1440px)"
+      />
+      <img
+        src={`${blok.image.filename}/m/1440x685/`}
+        alt={blok.image.alt}
+        class="absolute z-0 w-full h-full object-cover object-top"
+      />
+    </picture>
+
+    <div class="relative z-20 w-full group-[.is-test]:lg:bg-black pt-10">
 
       <div class="max-w-[624px] group-[.is-test]:max-w-[1016px] mx-auto mb-28 group-[.is-test]:mb-0 px-6 flex flex-col gap-y-8 justify-center items-center group-[.is-test]:lg:flex-row group-[.is-test]:lg:justify-between">
         <div class="max-w-[624px] text-center group-[.is-test]:lg:text-left">

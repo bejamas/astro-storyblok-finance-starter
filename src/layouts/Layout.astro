@@ -2,10 +2,14 @@
 import "../styles/global.css"
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
+import { getDatasource } from '../utils/api'
 import PostHog from '../components/posthog.astro'
 
 const { siteSettings, language, langSwitch, translate, blok } = Astro.props
 const seo = blok.metatags
+
+const colors = await getDatasource('colors')
+const primaryColor = colors.primary
 ---
 
 <!DOCTYPE html>
@@ -16,22 +20,22 @@ const seo = blok.metatags
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <title>{seo.title}</title>
-    <meta property="og:title" content={seo.og_title} />
-    <meta name="twitter:title" content={seo.twitter_title} />
-    <meta name="description" content={seo.description} />
-    <meta property="og:description" content={seo.og_description} />
-    <meta name="twitter:description" content={seo.twitter_description} />
+    <title>{seo?.title}</title>
+    <meta property="og:title" content={seo?.og_title} />
+    <meta name="twitter:title" content={seo?.twitter_title} />
+    <meta name="description" content={seo?.description} />
+    <meta property="og:description" content={seo?.og_description} />
+    <meta name="twitter:description" content={seo?.twitter_description} />
     <meta property="og:locale" content={language} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="" />
-    <meta name="twitter:card" content={seo.twitter_image ? "summary_large_image" : "summary"} />
-    <meta property="og:image" content={seo.og_image} />
-    <meta name="twitter:image" content={seo.twitter_image} />
+    <meta name="twitter:card" content={seo?.twitter_image ? "summary_large_image" : "summary"} />
+    <meta property="og:image" content={seo?.og_image} />
+    <meta name="twitter:image" content={seo?.twitter_image} />
     <link href="https://fonts.googleapis.com/css2?family=Adamina&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <PostHog />
   </head>
-  <body class="font-inter antialiased bg-background text-foreground">
+  <body class="font-inter antialiased bg-background text-foreground" style={`--color-primary: ${primaryColor};`}>
     <Header siteSettings={siteSettings} langSwitch={langSwitch} language={language} translate={translate} />
     <slot />
     <Footer siteSettings={siteSettings} language={language} translate={translate} />

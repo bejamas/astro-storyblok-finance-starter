@@ -8,14 +8,15 @@ const { blok } = Astro.props
 <section { ...storyblokEditable(blok)}>
   <div class="container mx-auto px-6">
     <div class="grid md:grid-cols-2 gap-16 p-16 bg-white">
-      <div>
+      <div class="pt-12 pl-12 bg-primary self-start">
         <Image
-          src={`${blok.image.filename}/m/906x0`}
+          src={`${blok.image.filename}/m/858x0`}
           alt={blok.image.alt}
-          width={453}
-          height={543}
+          width={405}
+          height={494}
           layout="full-width"
           loading="lazy"
+          class="rounded-tl-xl"
         />
       </div>
       <div class="flex flex-col justify-between items-start gap-8">
@@ -25,7 +26,7 @@ const { blok } = Astro.props
         <ul>
           {blok.testimonials && blok.testimonials.map((testimonial) => (
             <li>
-              <p class="text-black text-2xl md:text-4xl leading-[140%] font-adamina mb-4">“{testimonial.quote}“</p>
+              <p class="text-black text-2xl lg:text-4xl leading-[140%] font-adamina mb-4">“{testimonial.quote}“</p>
               <div class="flex gap-2 items-center p-3 text-black bg-[#F4F5F5]">
                 <div>
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">

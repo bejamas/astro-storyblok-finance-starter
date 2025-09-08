@@ -1,5 +1,5 @@
 ---
-import { useStoryblokApi } from '@storyblok/astro'
+import { getStory, getSiteSettings } from '../utils/api'
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 import Layout from '../layouts/Layout.astro'
 import parseUrl from '../utils/parseUrl'
@@ -17,29 +17,12 @@ let props = isPreview() ? parseUrl(params.slug) : Astro.props
 
 const { slug, language, langSwitch } = props
 
+const story = await getStory(slug, language)
+
+const siteSettings = await getSiteSettings(language)
+
 const translate = locales[language] || locales.en
 
-const storyblokApi = useStoryblokApi()
-
-const { data } = await storyblokApi.get(
-  `cdn/stories/${slug === undefined ? 'home' : slug}`,
-  {
-    version: isPreview() ? 'draft' : 'published',
-    resolve_relations: ['reports_section.reports'],
-    language,
-  }
-)
-const story = data.story
-
-
-const { data: settingsData } = await storyblokApi.get(
-  `cdn/stories/settings/site-settings/`,
-  {
-    version: isPreview() ? 'draft' : 'published',
-    language,
-  }
-)
-const siteSettings  = settingsData.story
 ---
 
 <Layout blok={story.content} siteSettings={siteSettings.content} langSwitch={langSwitch} language={language} translate={translate}>

@@ -2,19 +2,32 @@ import { defineConfig } from 'astro/config'
 import tailwindcss from '@tailwindcss/vite'
 import storyblok from '@storyblok/astro'
 import { loadEnv } from 'vite'
-import basicSsl from '@vitejs/plugin-basic-ssl'
+import mkcert from 'vite-plugin-mkcert'
+import netlify from '@astrojs/netlify'
+
 const env = loadEnv('', process.cwd(), 'STORYBLOK')
 
-// https://astro.build/config
+let is_preview
+let output = 'static'
+let adapter = undefined
+
+if (env.STORYBLOK_IS_PREVIEW === 'yes') {
+  is_preview = true
+  output = 'server'
+  adapter = netlify()
+}
+
 export default defineConfig({
+  output: output,
+  adapter: adapter,
+
   integrations: [
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
+      bridge: is_preview,
+      livePreview: is_preview,
       apiOptions: {
-        region: '',
-      },
-      bridge: {
-        customParent: 'https://app.storyblok.com',
+        region: 'eu',
       },
       components: {
         page: 'storyblok/Page',
@@ -36,13 +49,23 @@ export default defineConfig({
       },
     }),
   ],
+
+  image: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'a.storyblok.com',
+      },
+    ],
+  },
+
   vite: {
     plugins: [
-      basicSsl(),
+      mkcert(),
       tailwindcss()
     ],
     server: {
       https: true,
     },
-  },
+  }
 })

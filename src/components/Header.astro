@@ -2,7 +2,7 @@
 import { getTransLink } from '../utils/i18n'
 import { getHref } from '../utils/getHref'
 import LanguageSwitcher from './LanguageSwitcher.astro'
-const { language, translate, langSwitch, siteSettings } = Astro.props;
+const { language, translate, langSwitch, siteSettings } = Astro.props
 ---
 
 <header class="group absolute top-0 right-0 left-0 border-b border-border z-50" id="header">
@@ -30,12 +30,14 @@ const { language, translate, langSwitch, siteSettings } = Astro.props;
       }
 
       <!-- Mobile CTA at bottom -->
-      <a
-        href={getTransLink(language, ``)}
-        class="mt-8 button--glass text-white px-6 py-3 text-lg bg-black/20 backdrop-blur-sm md:hidden"
-      >
-        {translate.becomeMember}
-      </a>
+      <li>
+        <a
+          href={getTransLink(language, ``)}
+          class="mt-8 button--glass text-white px-6 py-3 text-lg bg-black/20 backdrop-blur-sm md:hidden"
+        >
+          {translate.becomeMember}
+        </a>
+      </li>
     </ul>
 
     <!-- Desktop right side -->
@@ -52,6 +54,7 @@ const { language, translate, langSwitch, siteSettings } = Astro.props;
       <button
         class="md:hidden flex flex-col justify-between w-6 h-5 z-50 relative"
         onclick="document.getElementById('header').classList.toggle('is-open')"
+        aria-label="Toggle Navigation"
       >
         <span class="block h-0.5 w-full bg-white transition-transform duration-300 group-[.is-open]:translate-y-[9px] group-[.is-open]:rotate-45"></span>
         <span class="block h-0.5 w-full bg-white transition-opacity duration-300 group-[.is-open]:opacity-0"></span>

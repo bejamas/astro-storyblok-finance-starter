@@ -30,20 +30,20 @@ const { language, langSwitch } = Astro.props
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
-    const toggleBtn = document.getElementById('dropdowntoggle');
-    const dropdown = document.getElementById('dropdown');
+    const toggleBtn = document.getElementById('dropdowntoggle')
+    const dropdown = document.getElementById('dropdown')
 
     toggleBtn.addEventListener('click', () => {
-      dropdown.classList.toggle('hidden');
-      const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
-      toggleBtn.setAttribute('aria-expanded', !expanded);
-    });
+      dropdown.classList.toggle('hidden')
+      const expanded = toggleBtn.getAttribute('aria-expanded') === 'true'
+      toggleBtn.setAttribute('aria-expanded', !expanded)
+    })
 
     document.addEventListener('click', (e) => {
       if (!toggleBtn.contains(e.target) && !dropdown.contains(e.target)) {
-        dropdown.classList.add('hidden');
-        toggleBtn.setAttribute('aria-expanded', false);
+        dropdown.classList.add('hidden')
+        toggleBtn.setAttribute('aria-expanded', false)
       }
-    });
-  });
+    })
+  })
 </script>

@@ -1,14 +1,10 @@
-import { useStoryblokApi } from '@storyblok/astro'
-import isPreview from './isPreview'
+import { getLinks } from '../utils/api'
 import { getLanguages } from './i18n'
-const DEFAULT_LANG = import.meta.env.DEFAULT_LANG
+const DEFAULT_LANG = import.meta.env.STORYBLOK_DEFAULT_LANG
+const links = await getLinks()
 const languages = await getLanguages()
 
 export default async function generateStaticPaths() {
-  const storyblokApi = useStoryblokApi()
-  const links = await storyblokApi.getAll('cdn/links', {
-    version: isPreview() ? 'draft' : 'published',
-  })
   let paths = []
   links
     .filter((link) => !link.is_folder && link.slug !== 'settings/site-settings')

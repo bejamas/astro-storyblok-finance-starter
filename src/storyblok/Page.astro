@@ -7,7 +7,7 @@ const { blok, language } = Astro.props
 
 <main {...storyblokEditable(blok)} class="space-y-16 md:space-y-32">
   {
-    blok.body.map((blok) => {
+    blok.body?.map((blok) => {
       return <StoryblokComponent language={language} blok={blok} />
     })
   }

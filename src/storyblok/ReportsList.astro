@@ -1,17 +1,10 @@
 ---
-import { storyblokEditable, useStoryblokApi } from '@storyblok/astro'
+import { storyblokEditable } from '@storyblok/astro'
+import { getReportList } from '../utils/api'
 import ReportCard from '../components/ReportCard.astro'
 
 const { blok, language } = Astro.props
-const storyblokApi = useStoryblokApi()
-const { data } = await storyblokApi.get(`cdn/stories`, {
-  version: import.meta.env.DEV ? 'draft' : 'published',
-  starts_with: 'report/',
-  is_startpage: false,
-  language,
-})
-
-const reports = data.stories
+const reports = await getReportList(language)
 ---
 
 <section {...storyblokEditable(blok)} class="bg-black">
