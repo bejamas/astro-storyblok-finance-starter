@@ -1,4 +1,5 @@
 ---
+import getLiveStory from '@storyblok/astro'
 import { getStory, getSiteSettings } from '../utils/api'
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 import Layout from '../layouts/Layout.astro'
@@ -17,7 +18,14 @@ let props = isPreview() ? parseUrl(params.slug) : Astro.props
 
 const { slug, language, langSwitch } = props
 
-const story = await getStory(slug, language)
+
+let story = null;
+  const liveStory = await getLiveStory(Astro);
+  if (liveStory) {
+    story = liveStory;
+  } else {
+    story = await getStory(slug, language)
+  }
 
 const siteSettings = await getSiteSettings(language)
 

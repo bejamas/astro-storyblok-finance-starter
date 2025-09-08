@@ -24,7 +24,10 @@ export default defineConfig({
   integrations: [
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
-      bridge: is_preview,
+      bridge: {
+        resolve_relations: ['reports_section.reports'],
+      },
+      enableFallbackComponent: true,
       livePreview: is_preview,
       apiOptions: {
         region: 'eu',
