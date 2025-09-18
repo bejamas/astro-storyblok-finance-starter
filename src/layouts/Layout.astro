@@ -18,8 +18,6 @@ const primaryColor = colors.primary
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <title>{seo?.title}</title>
     <meta property="og:title" content={seo?.og_title} />
     <meta name="twitter:title" content={seo?.twitter_title} />
@@ -32,7 +30,6 @@ const primaryColor = colors.primary
     <meta name="twitter:card" content={seo?.twitter_image ? "summary_large_image" : "summary"} />
     <meta property="og:image" content={seo?.og_image} />
     <meta name="twitter:image" content={seo?.twitter_image} />
-    <link href="https://fonts.googleapis.com/css2?family=Adamina&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <PostHog />
   </head>
   <body class="font-inter antialiased bg-background text-foreground" style={`--color-primary: ${primaryColor};`}>

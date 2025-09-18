@@ -10,6 +10,8 @@ This template is powered by a modern, headless stack: Astro, Storyblok, Netlify,
 - ✨ [Live Demo](https://astro-storyblok-finance-starter.netlify.app/)
 - 💨 [PageSpeed Insights Report](https://pagespeed.web.dev/analysis/https-astro-storyblok-template-netlify-app/04ge88qxbi?form_factor=desktop)
 - 🍿 [Watch Demo on YouTube](https://www.youtube.com/watch?v=2hPhwubis7Q)
+- 🆎 [A/B testing with PostHog](https://posthog-finance-starter.netlify.app/)
+  - [Check out its branch](https://github.com/bejamas/astro-storyblok-finance-starter/tree/with-posthog-ab-testing)
 
 ## Tech Stack
 - Astro
@@ -29,14 +31,14 @@ This template is powered by a modern, headless stack: Astro, Storyblok, Netlify,
 
 
 ## Quick Start
-1. Create a Storyblok account
-2. Fork this repo
-3. Clone Storyblok Space (using the button below)
+1. Create a Storyblok account and a new Space
+2. Clone Storyblok Space (using the button below)
+3. Fork this repo
 4. Create your project on Netlify
 5. Set up environment variables (see below)
 6. Deploy!
 
-[![Clone Storyblok Space](https://a.storyblok.com/f/286134095425736/867x146/a357885bea/clone-button.png/m/208x0)](https://astro-storyblok-finance-starter.netlify.app/.netlify/functions/clone-storyblok-space)
+[![Clone Storyblok Space](https://a.storyblok.com/f/286134095425736/208x35/7a54d39bad/clone-button.svg)](https://storyblok-space-cloner.netlify.app/)
 
 ## Local Setup
 

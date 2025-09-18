@@ -5,7 +5,7 @@ import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 const { blok, language } = Astro.props
 ---
 
-<main {...storyblokEditable(blok)} class="space-y-16 md:space-y-32">
+<main {...storyblokEditable(blok)} class="has-[>*:nth-child(3)]:space-y-16 has-[>*:nth-child(3)]:md:space-y-32">
   {
     blok.body?.map((blok) => {
       return <StoryblokComponent language={language} blok={blok} />
