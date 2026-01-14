@@ -10,16 +10,23 @@ const { language, translate, siteSettings } = Astro.props
       <div class="lg:col-span-2">
         <div class="flex items-center gap-3">
           <a href={getTransLink(language, `/`)}>
-            <img src={siteSettings.logo.filename} alt={siteSettings.logo.alt} />
+            {/* SAFE LOGO CHECK */}
+            {siteSettings?.logo?.filename ? (
+              <img src={siteSettings.logo.filename} alt={siteSettings.logo.alt} />
+            ) : (
+              <span class="text-xl font-bold">My Finance Site</span>
+            )}
           </a>
-          <!-- <div class="font-medium capitalize text-white">Company Name</div> -->
         </div>
       </div>
 
       <div class="lg:col-span-3">
         <div class="mb-8">
-          <h2 class="text-xl font-medium mb-4">{translate.companyDetails}</h2>
-          <p class="max-w-[415px] opacity-65">{siteSettings.company_description}</p>
+          <h2 class="text-xl font-medium mb-4">{translate?.companyDetails || 'Company Details'}</h2>
+          {/* SAFE DESCRIPTION CHECK */}
+          <p class="max-w-[415px] opacity-65">
+            {siteSettings?.company_description || 'Add your description in Storyblok'}
+          </p>
         </div>
 
         <address class="not-italic space-y-3">
@@ -32,7 +39,7 @@ const { language, translate, siteSettings } = Astro.props
                 <clipPath id="clip0_349_381"><rect width="16" height="16" fill="white" transform="translate(0 -0.000488281)"/></clipPath>
               </defs>
             </svg>
-            <a href="">{siteSettings.phone}</a>
+            <a href="">{siteSettings?.phone || '+1 555 000 0000'}</a>
           </div>
           <div class="flex items-center gap-3">
             <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none">
@@ -40,15 +47,16 @@ const { language, translate, siteSettings } = Astro.props
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 7.99951H13.5V10.9995C13.5 11.3973 13.342 11.7789 13.0607 12.0602C12.7794 12.3415 12.3978 12.4995 12 12.4995H4C3.60218 12.4995 3.22064 12.3415 2.93934 12.0602C2.65804 11.7789 2.5 11.3973 2.5 10.9995V7.99951ZM13.197 6.49951L11.346 3.72251C11.3004 3.65396 11.2385 3.59774 11.166 3.55883C11.0934 3.51993 11.0123 3.49955 10.93 3.49951H5.07C4.98766 3.49955 4.9066 3.51993 4.83403 3.55883C4.76146 3.59774 4.69962 3.65396 4.654 3.72251L2.803 6.49951H13.197ZM15 7.40751V10.9995C15 11.7952 14.6839 12.5582 14.1213 13.1208C13.5587 13.6834 12.7956 13.9995 12 13.9995H4C3.20435 13.9995 2.44129 13.6834 1.87868 13.1208C1.31607 12.5582 1 11.7952 1 10.9995V7.40751C1.00006 6.81526 1.17543 6.23627 1.504 5.74351L3.406 2.89051C3.58858 2.61649 3.836 2.3918 4.12628 2.23636C4.41656 2.08093 4.74073 1.99957 5.07 1.99951H10.93C11.2592 1.99946 11.5833 2.08067 11.8736 2.23592C12.1638 2.39118 12.4113 2.61568 12.594 2.88951L14.496 5.74351C14.8246 6.23627 14.9999 6.81526 15 7.40751ZM9.25 10.9995C9.44891 10.9995 9.63968 10.9205 9.78033 10.7798C9.92098 10.6392 10 10.4484 10 10.2495C10 10.0506 9.92098 9.85983 9.78033 9.71918C9.63968 9.57853 9.44891 9.49951 9.25 9.49951H6.75C6.55109 9.49951 6.36032 9.57853 6.21967 9.71918C6.07902 9.85983 6 10.0506 6 10.2495C6 10.4484 6.07902 10.6392 6.21967 10.7798C6.36032 10.9205 6.55109 10.9995 6.75 10.9995H9.25Z" fill="white"/>
               </g>
             </svg>
-            <a href="">{siteSettings.email}</a>
+            <a href="">{siteSettings?.email || 'email@example.com'}</a>
           </div>
         </address>
       </div>
 
       <nav>
         <ul class="space-y-6">
+          {/* SAFE NAVIGATION CHECK */}
           {
-            siteSettings.navigation.length &&
+            siteSettings?.navigation?.length > 0 &&
             siteSettings.navigation.map((navItem) => {
               return (
                 <li>
@@ -64,11 +72,11 @@ const { language, translate, siteSettings } = Astro.props
 
   <div class="container mx-auto px-6 pt-6 pb-16 border-solid border-t border-t-border">
     <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="opacity-65">{translate.allRightsReserved}</p>
+        <p class="opacity-65">{translate?.allRightsReserved || 'All rights reserved.'}</p>
         <div class="flex gap-6">
-          <a href={getTransLink(language, `/terms`)}>{translate.termsAndConditions}</a>
+          <a href={getTransLink(language, `/terms`)}>{translate?.termsAndConditions || 'Terms'}</a>
           <span class="opacity-65">•</span>
-          <a href={getTransLink(language, `/policies`)}>{translate.privacyPolicy}</a>
+          <a href={getTransLink(language, `/policies`)}>{translate?.privacyPolicy || 'Privacy'}</a>
         </div>
     </div>
   </div>

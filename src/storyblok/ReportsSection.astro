@@ -10,17 +10,21 @@ const { blok, language } = Astro.props
     {blok.title && <h2 class="text-white text-3xl md:text-5xl text-center leading-[120%] font-adamina mb-16 px-6">{blok.title}</h2>}
 
     <ul class="grid md:grid-cols-3 gap-6">
-      {
-        blok.reports.length &&
-          blok.reports.map((report) => {
-            report.content.slug = report.slug
-            return (
-              <li>
-                <ReportCard language={language} report={report.content} />
-              </li>
-            )
-          })
-      }
+  {
+      blok.reports?.map((report) => {
+        // SAFEGUARD: If the report data is missing, skip it!
+        if (!report || !report.content) return null;
+
+        // Now it is safe to assign the slug
+        report.content.slug = report.slug
+
+        return (
+          <li>
+            <ReportCard language={language} report={report.content} />
+          </li>
+        )
+      })
+    }
     </ul>
 
     {blok.button && blok.button.length > 0 && (

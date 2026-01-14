@@ -1,38 +1,59 @@
 ---
-import {getLiveStory } from '@storyblok/astro'
-import { getStory, getSiteSettings } from '../utils/api'
+import { useStoryblokApi } from '@storyblok/astro'
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
-import Layout from '../layouts/Layout.astro'
-import parseUrl from '../utils/parseUrl'
-import isPreview from '../utils/isPreview'
-import generateStaticPaths from '../utils/generateStaticPaths'
-import * as locales from '../locales'
+import Layout from '../layouts/Layout.astro';
+
+export const prerender = true;
 
 export async function getStaticPaths() {
-  return await generateStaticPaths()
+  const storyblokApi = useStoryblokApi()
+
+  // 1. Fetch all generic stories (pages)
+  const { data } = await storyblokApi.get('cdn/stories', {
+    version: 'draft',
+  })
+
+  // 2. Fetch the specific "Site Settings" story for Header/Footer data
+  let siteSettings = null;
+  try {
+    const { data: settingsData } = await storyblokApi.get('cdn/stories/site-settings', {
+      version: 'draft',
+    });
+    siteSettings = settingsData.story;
+  } catch (e) {
+    console.error("⚠️ 'site-settings' story not found in Storyblok. Please create it!");
+  }
+
+  // 3. Map over the stories and create a page for each one
+  const pages = data.stories.map((story) => {
+    return {
+      params: { 
+        // If slug is 'home', make it undefined so it serves as the root index page
+        slug: story.full_slug === 'home' ? undefined : story.full_slug 
+      },
+      props: { 
+        story,
+        siteSettings,           // <--- Now we are actually passing it!
+        language: story.lang || 'default', 
+        langSwitch: {},         // Placeholder to prevent crash
+        translate: (key) => key // Placeholder function
+      },
+    }
+  })
+
+  return pages
 }
 
-const params = Astro.params
-
-let props = isPreview() ? parseUrl(params.slug) : Astro.props
-
-const { slug, language, langSwitch } = props
-
-const siteSettings = await getSiteSettings(language)
-
-const translate = locales[language] || locales.en
-
-let story
-
-const liveStory = await getLiveStory(Astro);
-
-if (liveStory) {
-  story = liveStory;
-} else {
-  story = await getStory(slug, language)
-}
+// 4. Receive the props we just passed
+const { story, siteSettings, langSwitch, language, translate } = Astro.props;
 ---
 
-<Layout blok={story.content} siteSettings={siteSettings.content} langSwitch={langSwitch} language={language} translate={translate}>
+<Layout 
+  blok={story.content} 
+  siteSettings={siteSettings?.content} 
+  langSwitch={langSwitch} 
+  language={language} 
+  translate={translate}
+>
   <StoryblokComponent blok={story.content} language={language} translate={translate}  />
 </Layout>
