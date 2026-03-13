@@ -14,7 +14,7 @@ This template is powered by a modern, headless stack: Astro, Storyblok, Netlify,
   - [Check out its branch](https://github.com/bejamas/astro-storyblok-finance-starter/tree/with-posthog-ab-testing)
 
 ## Tech Stack
-- Astro
+- Astro v6 🚀
 - Storyblok
 - Netlify
 - PostHog
