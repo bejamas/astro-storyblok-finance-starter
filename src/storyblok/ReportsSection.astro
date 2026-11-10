@@ -6,7 +6,7 @@ const { block, editable, language } = Astro.props
 
 <section {...editable} class="bg-black">
   <div class="container mx-auto px-6 py-24 flex flex-col items-center gap-16">
-    {block.title && <h2 class="text-white text-3xl md:text-5xl text-center leading-[120%] font-adamina mb-16 px-6">{block.title}</h2>}
+    {block.title && <h2 class="text-white text-3xl md:text-5xl text-center leading-[120%] font-heading mb-16 px-6">{block.title}</h2>}
 
     <ul class="grid md:grid-cols-3 gap-6">
       {

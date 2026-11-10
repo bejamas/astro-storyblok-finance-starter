@@ -1,15 +1,20 @@
 ---
+import { Button } from '@/components/ui/button'
+
 const { label, href, variant = 'primary', classes } = Astro.props
 
-const baseStyles = 'inline-block px-5 py-4 text-center -tracking-[0.64px] font-medium rounded-sm'
+// Storyblok's button styles mapped to bejamas/ui Button variants
 const variants = {
-  primary: 'bg-primary text-white',
-  secondary: 'bg-white text-black',
+  primary: 'default',
+  secondary: 'secondary',
 }
-
-const className = `${classes} ${baseStyles} ${variants[variant] || variants.primary}`
 ---
 
-<a href={href} class={className}>
+<Button
+  as="a"
+  href={href}
+  variant={variants[variant] || variants.primary}
+  class:list={['h-auto rounded-sm border-0 px-5 py-4 text-center text-base tracking-[-0.64px] whitespace-normal', classes]}
+>
   {label}
-</a>
+</Button>

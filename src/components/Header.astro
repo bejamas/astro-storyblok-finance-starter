@@ -1,65 +1,82 @@
 ---
+import { Button } from '@/components/ui/button'
+import { HamburgerMenu, HamburgerMenuItem } from '@/components/ui/hamburger-menu'
 import { getTransLink } from '../utils/i18n'
 import { getHref } from '../utils/getHref'
 import LanguageSwitcher from './LanguageSwitcher.astro'
 const { language, translate, langSwitch, siteSettings } = Astro.props
+
+const navigation = siteSettings.navigation.length ? siteSettings.navigation : []
+const glassButton = 'button--glass h-auto rounded-sm bg-black/20 font-normal text-white backdrop-blur-sm hover:bg-black/20 hover:text-white'
+const hamburgerLine = 'block h-0.5 w-full bg-white duration-300'
 ---
 
-<header class="group absolute top-0 right-0 left-0 border-b border-border z-50" id="header">
-  <nav class="max-w-[1016px] mx-auto px-6 flex justify-between items-center md:grid md:grid-cols-3 py-6">
+<header class="absolute top-0 right-0 left-0 border-b border-border z-50" id="header">
+  <HamburgerMenu
+    class="bg-transparent"
+    triggerLabel="Toggle Navigation"
+    barClass="relative z-[60] mx-auto h-auto max-w-[1016px] justify-between gap-4 border-b-0 px-6 py-6 md:grid md:grid-cols-3 md:gap-0 md:[&>[data-slot=hamburger-menu-actions]]:contents"
+    triggerClass="h-5 w-6 flex-col items-stretch justify-between rounded-none hover:bg-transparent md:hidden"
+    panelClass="fixed inset-0 h-auto bg-primary p-0 text-2xl text-white shadow-none transition-transform duration-300 data-[ending-style]:translate-x-full data-[starting-style]:translate-x-full data-[starting-style]:transition-none md:hidden [&>nav]:justify-center [&_[data-slot=hamburger-menu-items]]:items-center [&_[data-slot=hamburger-menu-items]]:gap-8"
+  >
     <!-- Logo -->
-    <div class="flex items-center gap-1 z-50">
-      <a href={getTransLink(language, `/`)}>
-        <img src={siteSettings.logo.filename} alt={siteSettings.logo.alt} />
-      </a>
-    </div>
+    <a slot="brand" class="block" href={getTransLink(language, `/`)}>
+      <img src={siteSettings.logo.filename} alt={siteSettings.logo.alt} />
+    </a>
 
-    <!-- Navigation -->
-    <ul class="fixed inset-0 flex flex-col items-center justify-center gap-8 bg-primary text-white text-2xl transform transition-transform duration-300 md:static md:flex-row md:bg-transparent md:text-[0.81rem] md:gap-0 md:translate-x-0 translate-x-full group-[.is-open]:translate-x-0">
-      {siteSettings.navigation.length &&
-        siteSettings.navigation.map((navItem) => (
+    <!-- Desktop navigation -->
+    <nav slot="actions" class="hidden md:block">
+      <ul class="flex items-center justify-center text-[0.81rem] leading-[calc(2/1.5)] text-white">
+        {navigation.map((navItem) => (
           <li>
-            <a
-              href={getHref(navItem.url)}
-              class="block px-4 py-2 md:px-4 md:py-2 capitalize hover:opacity-80"
-            >
+            <a href={getHref(navItem.url)} class="block px-4 py-2 capitalize hover:opacity-80">
               {navItem.label}
             </a>
           </li>
-        ))
-      }
+        ))}
+      </ul>
+    </nav>
 
-      <!-- Mobile CTA at bottom -->
-      <li>
-        <a
-          href={getTransLink(language, ``)}
-          class="mt-8 button--glass text-white px-6 py-3 text-lg bg-black/20 backdrop-blur-sm md:hidden"
-        >
-          {translate.becomeMember}
-        </a>
-      </li>
-    </ul>
-
-    <!-- Desktop right side -->
-    <div class="flex items-center gap-4 md:justify-self-end">
+    <!-- Right side -->
+    <div slot="actions" class="flex items-center gap-4 md:justify-self-end">
       <LanguageSwitcher langSwitch={langSwitch} language={language} />
-      <a
+      <Button
+        as="a"
         href={getTransLink(language, ``)}
-        class="button--glass hidden md:block text-white px-3 py-1.5 text-sm bg-black/20 backdrop-blur-sm"
+        variant="ghost"
+        class:list={[glassButton, 'hidden px-3 py-1.5 text-sm md:inline-flex']}
       >
         {translate.becomeMember}
-      </a>
-
-      <!-- Hamburger Button -->
-      <button
-        class="md:hidden flex flex-col justify-between w-6 h-5 z-50 relative"
-        onclick="document.getElementById('header').classList.toggle('is-open')"
-        aria-label="Toggle Navigation"
-      >
-        <span class="block h-0.5 w-full bg-white transition-transform duration-300 group-[.is-open]:translate-y-[9px] group-[.is-open]:rotate-45"></span>
-        <span class="block h-0.5 w-full bg-white transition-opacity duration-300 group-[.is-open]:opacity-0"></span>
-        <span class="block h-0.5 w-full bg-white transition-transform duration-300 group-[.is-open]:-translate-y-[9px] group-[.is-open]:-rotate-45"></span>
-      </button>
+      </Button>
     </div>
-  </nav>
+
+    <!-- Hamburger icon -->
+    <Fragment slot="trigger">
+      <span class:list={[hamburgerLine, 'transition-transform group-data-[state=open]/hamburger-menu:translate-y-[9px] group-data-[state=open]/hamburger-menu:rotate-45']}></span>
+      <span class:list={[hamburgerLine, 'transition-opacity group-data-[state=open]/hamburger-menu:opacity-0']}></span>
+      <span class:list={[hamburgerLine, 'transition-transform group-data-[state=open]/hamburger-menu:-translate-y-[9px] group-data-[state=open]/hamburger-menu:-rotate-45']}></span>
+    </Fragment>
+
+    <!-- Mobile navigation -->
+    {navigation.map((navItem) => (
+      <HamburgerMenuItem
+        href={getHref(navItem.url)}
+        class="rounded-none px-4 py-2 text-2xl font-normal text-white capitalize hover:text-white hover:opacity-80"
+      >
+        {navItem.label}
+      </HamburgerMenuItem>
+    ))}
+
+    <!-- Mobile CTA at bottom -->
+    <div>
+      <Button
+        as="a"
+        href={getTransLink(language, ``)}
+        variant="ghost"
+        class:list={[glassButton, 'inline px-6 py-3 text-lg']}
+      >
+        {translate.becomeMember}
+      </Button>
+    </div>
+  </HamburgerMenu>
 </header>

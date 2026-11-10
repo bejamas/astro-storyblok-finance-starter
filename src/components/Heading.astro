@@ -1,15 +1,18 @@
 ---
+import { Badge } from '@/components/ui/badge'
+import { plainBadge } from '@/lib/ui'
+
 const { title, icon, variant = 'default' } = Astro.props
 
 const variants = {
-  default: 'text-black',
-  glass: 'p-2 bg-black/30 backdrop-blur border border-transparent text-white [border-image:linear-gradient(to_right,#ffffff14,#ffffff17)_1]',
+  default: 'border-0 p-0',
+  glass: 'p-2 bg-black/30 backdrop-blur border-transparent text-white [border-image:linear-gradient(to_right,#ffffff14,#ffffff17)_1]',
 }
 ---
 
-<h2 class={`inline-flex gap-4 items-center ${variants[variant]}`}>
+<Badge as="h2" variant="outline" class:list={[plainBadge, variants[variant]]}>
   <div class="bg-primary p-1 rounded-sm">
     {icon && <img src={icon} alt="" class="w-[25px] h-[25px]" />}
   </div>
   <span>{title}</span>
-</h2>
+</Badge>

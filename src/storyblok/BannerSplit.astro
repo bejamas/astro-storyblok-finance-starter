@@ -1,18 +1,20 @@
 ---
 import { StoryblokBlock } from './index.js'
 import { Image } from 'astro:assets'
+import { Card } from '@/components/ui/card'
+import { flatCard } from '@/lib/ui'
 const { block, editable } = Astro.props
 ---
 
 <section {...editable}>
   <div class="container mx-auto px-6">
-    <div class="grid md:grid-cols-2 gap-16 p-6 md:p-16 bg-white">
+    <Card class:list={[flatCard, 'grid gap-16 p-6 md:grid-cols-2 md:p-16']}>
       <div class="flex flex-col justify-between items-start gap-8">
         {block.heading && block.heading.length > 0 && (
           <StoryblokBlock block={block.heading[0]} />
         )}
         <div class="flex flex-col justify-center items-start grow max-w-[476px]">
-          <h3 class="text-black text-3xl lg:text-5xl leading-[120%] font-adamina mb-4">{block.headline}</h3>
+          <h3 class="text-black text-3xl lg:text-5xl leading-[120%] font-heading mb-4">{block.headline}</h3>
           {block.lead && (
             <p class="mb-8 text-black opacity-65">
               {block.lead}
@@ -33,6 +35,6 @@ const { block, editable } = Astro.props
           loading="lazy"
         />
       </div>
-    </div>
+    </Card>
   </div>
 </section>

@@ -1,49 +1,53 @@
 ---
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { getLanguages, getLanguageLabel, getLanguageFlag } from '../utils/i18n'
+
 const languages = await getLanguages()
 const { language, langSwitch } = Astro.props
 ---
 
-<div class="relative inline-block">
-  <button id="dropdowntoggle" type="button" class="inline-flex items-center p-1.5 gap-0.5 rounded-sm select-none cursor-pointer" aria-expanded="false" aria-haspopup="true" aria-label="Select language">
+<DropdownMenu data-language-switcher>
+  <DropdownMenuTrigger
+    variant="ghost"
+    class="h-auto cursor-pointer gap-0.5 rounded-sm border-0 p-1.5 hover:bg-transparent has-[>svg]:px-1.5 aria-expanded:bg-transparent"
+    aria-label="Select language"
+  >
     <svg class="rounded-full" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" set:html={getLanguageFlag(language)} />
     <svg class="-scale-100" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M4 10L8 6L12 10" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-  </button>
-  <div id="dropdown" class="hidden absolute left-0 w-[160px] -translate-x-1/2 ml-[50%] mt-2 rounded-lg bg-white" aria-labelledby="dropdowntoggle">
-    <ul class="flex flex-col p-2 gap-y-1.5" role="none">
-      {languages.map((lang) => (
-          <li>
-            <a
-              href={langSwitch[lang]}
-              class="flex items-center gap-1 rounded-sm p-1 text-xs capitalize"
-            >
-              <svg aria-hidden="true" class="rounded-full" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" set:html={getLanguageFlag(lang)} />
-              {getLanguageLabel(lang)}
-            </a>
-          </li>
-        ))}
-    </ul>
-  </div>
-</div>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent
+    align="center"
+    sideOffset={8}
+    class="flex w-[160px] min-w-0 flex-col gap-y-1.5 p-2 shadow-none ring-0"
+  >
+    {languages.map((lang) => (
+      <DropdownMenuItem class="p-0" value={lang}>
+        <a
+          href={langSwitch[lang]}
+          class="flex w-full items-center gap-1 rounded-sm p-1 text-xs capitalize outline-none"
+          tabindex="-1"
+        >
+          <svg aria-hidden="true" class="rounded-full" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" set:html={getLanguageFlag(lang)} />
+          {getLanguageLabel(lang)}
+        </a>
+      </DropdownMenuItem>
+    ))}
+  </DropdownMenuContent>
+</DropdownMenu>
 
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
-    const toggleBtn = document.getElementById('dropdowntoggle')
-    const dropdown = document.getElementById('dropdown')
-
-    toggleBtn.addEventListener('click', () => {
-      dropdown.classList.toggle('hidden')
-      const expanded = toggleBtn.getAttribute('aria-expanded') === 'true'
-      toggleBtn.setAttribute('aria-expanded', !expanded)
-    })
-
-    document.addEventListener('click', (e) => {
-      if (!toggleBtn.contains(e.target) && !dropdown.contains(e.target)) {
-        dropdown.classList.add('hidden')
-        toggleBtn.setAttribute('aria-expanded', false)
-      }
+<script>
+  // Menu items are links: a keyboard selection (Enter/Space) follows the link inside the item.
+  document.querySelectorAll('[data-language-switcher]').forEach((root) => {
+    root.addEventListener('dropdown-menu:select', (event) => {
+      const { source, item } = (event as CustomEvent<{ source?: string; item?: HTMLElement }>).detail
+      if (source === 'keyboard') item?.querySelector('a')?.click()
     })
   })
 </script>

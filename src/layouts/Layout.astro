@@ -30,7 +30,7 @@ const primaryColor = colors.primary
     <meta property="og:image" content={seo?.og_image} />
     <meta name="twitter:image" content={seo?.twitter_image} />
   </head>
-  <body class="font-inter antialiased bg-background text-foreground" style={`--color-primary: ${primaryColor};`}>
+  <body class="antialiased" style={`--primary: ${primaryColor};`}>
     <Header siteSettings={siteSettings} langSwitch={langSwitch} language={language} translate={translate} />
     <slot />
     <Footer siteSettings={siteSettings} language={language} translate={translate} />

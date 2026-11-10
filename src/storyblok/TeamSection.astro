@@ -1,11 +1,12 @@
 ---
 import { Image } from 'astro:assets'
+import ArrowLink from '../components/ArrowLink.astro'
 const { block, editable } = Astro.props
 ---
 
 <section {...editable}>
   <div class="container mx-auto px-6">
-    {block.title && <h2 class="text-3xl md:text-5xl text-center font-adamina mb-16 px-6">{block.title}</h2>}
+    {block.title && <h2 class="text-3xl md:text-5xl text-center font-heading mb-16 px-6">{block.title}</h2>}
 
     <ul class="grid md:grid-cols-2 gap-y-16 gap-x-5">
       {block.members && block.members.map((member) => (
@@ -23,9 +24,7 @@ const { block, editable } = Astro.props
             <h3 class="text-2xl">{member.name}</h3>
             <span class="text-sm">{member.role}</span>
           </div>
-          <a href={member.link.cached_url} class="absolute -top-[8px] right-[24px] w-[96px] h-[96px] flex justify-center items-center rounded-full bg-primary opacity-0 scale-75 -translate-x-5 pointer-events-none transition-all duration-[400ms] ease-elastic group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 group-hover:pointer-events-auto hover:scale-110">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path fill="#fff" fill-rule="evenodd" d="M10.293 16.707a1 1 0 0 0 1.414 0l6-6a1 1 0 0 0 0-1.414l-6-6a1 1 0 0 0-1.414 1.414L14.586 9H3a1 1 0 0 0 0 2h11.586l-4.293 4.293a1 1 0 0 0 0 1.414Z" clip-rule="evenodd"/></svg>
-          </a>
+          <ArrowLink reveal href={member.link.cached_url} class="-top-[8px] right-[24px]" />
         </li>
       ))}
     </ul>
