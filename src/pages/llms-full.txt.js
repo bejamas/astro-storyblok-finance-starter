@@ -1,14 +1,12 @@
-import { storyblokApi } from '@storyblok/astro/client'
+import { getAllStories } from '../utils/api'
 import { extractStoryMeta } from '../utils/extractStoryMeta'
 import { convertedMarkdown } from '../utils/html2md'
-import isPreview from '../utils/isPreview'
 
 export const GET = async () => {
 	try {
-		const stories = await storyblokApi.getAll('cdn/stories', {
+		const stories = await getAllStories({
 			sort_by: 'position:desc',
-			version: isPreview() ? 'draft' : 'published',
-      excluding_slugs: 'settings/*',
+			excluding_slugs: 'settings/*',
 		})
 
 		const storyExtract = stories

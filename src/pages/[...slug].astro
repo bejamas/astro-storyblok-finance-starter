@@ -1,7 +1,7 @@
 ---
-import {getLiveStory } from '@storyblok/astro'
+import { getPayload, StoryblokPreview } from '@storyblok/astro'
 import { getStory, getSiteSettings } from '../utils/api'
-import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+import { StoryblokBlock } from '../storyblok/index.js'
 import Layout from '../layouts/Layout.astro'
 import parseUrl from '../utils/parseUrl'
 import isPreview from '../utils/isPreview'
@@ -22,17 +22,13 @@ const siteSettings = await getSiteSettings(language)
 
 const translate = locales[language] || locales.en
 
-let story
-
-const liveStory = await getLiveStory(Astro);
-
-if (liveStory) {
-  story = liveStory;
-} else {
-  story = await getStory(slug, language)
-}
+// During a Visual Editor live update, render the edited story instead of fetching it
+const payload = await getPayload({ locals: Astro.locals })
+const story = payload.story ?? (await getStory(slug, language))
 ---
 
 <Layout blok={story.content} siteSettings={siteSettings.content} langSwitch={langSwitch} language={language} translate={translate}>
-  <StoryblokComponent blok={story.content} language={language} translate={translate}  />
+  <StoryblokBlock block={story.content} language={language} translate={translate} />
+  <!-- Reloads on save in the Visual Editor; live updates while typing need an on-demand route -->
+  <StoryblokPreview liveUpdate={!Astro.isPrerendered} bridgeOptions={{ resolveRelations: ['reports_section.reports'] }} />
 </Layout>

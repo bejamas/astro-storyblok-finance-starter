@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config'
 import tailwindcss from '@tailwindcss/vite'
-import { storyblok } from '@storyblok/astro'
 import { loadEnv } from 'vite'
 import mkcert from 'vite-plugin-mkcert'
 import netlify from '@astrojs/netlify'
@@ -33,20 +32,6 @@ else {
 export default defineConfig({
   output: output,
   adapter: adapter,
-
-  integrations: [
-    storyblok({
-      accessToken: env.STORYBLOK_TOKEN,
-      bridge: {
-        resolveRelations: ['reports_section.reports'],
-      },
-      enableFallbackComponent: true,
-      livePreview: is_preview,
-      apiOptions: {
-        region: 'eu',
-      },
-    }),
-  ],
 
   image: {
     remotePatterns: [
