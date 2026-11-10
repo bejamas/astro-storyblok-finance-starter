@@ -1,29 +1,28 @@
 ---
-import { storyblokEditable } from '@storyblok/astro'
-import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
-const { blok } = Astro.props
+import { StoryblokBlock } from './index.js'
+const { block, editable } = Astro.props
 ---
 
-<section {...storyblokEditable(blok)} class="group" data-posthog>
+<section {...editable} class="group" data-posthog>
 
   <div class="relative min-h-[82vh] flex items-end pt-40 before:absolute before:inset-0 before:bg-black/55 before:mix-blend-multiply before:z-10">
 
     <picture class="absolute z-0 w-full h-full object-cover object-top">
       <source
-        srcset={`${blok.image.filename}/m/640x685/`}
+        srcset={`${block.image.filename}/m/640x685/`}
         media="(max-width: 640px)"
       />
       <source
-        srcset={`${blok.image.filename}/m/1024x685/`}
+        srcset={`${block.image.filename}/m/1024x685/`}
         media="(max-width: 1024px)"
       />
       <source
-        srcset={`${blok.image.filename}/m/1440x685/`}
+        srcset={`${block.image.filename}/m/1440x685/`}
         media="(max-width: 1440px)"
       />
       <img
-        src={`${blok.image.filename}/m/1440x685/`}
-        alt={blok.image.alt}
+        src={`${block.image.filename}/m/1440x685/`}
+        alt={block.image.alt}
         class="absolute z-0 w-full h-full object-cover object-top"
       />
     </picture>
@@ -32,24 +31,24 @@ const { blok } = Astro.props
       <div class="max-w-[624px] mx-auto mb-28 px-6 flex flex-col gap-y-8 justify-center items-center">
         <div class="max-w-[624px] text-center">
           <h2 class="text-white text-3xl md:text-5xl leading-[110%] -tracking-[1.92px] font-adamina mb-4">
-            {blok.headline}
+            {block.headline}
           </h2>
 
-          {blok.lead && (
+          {block.lead && (
             <p class="text-white leading-[150%] -tracking-[0.32px]">
-              {blok.lead}
+              {block.lead}
             </p>
           )}
         </div>
 
-        {blok.button && blok.button.length > 0 && (
-          <StoryblokComponent blok={blok.button[0]} classes="cta-button" />
+        {block.button && block.button.length > 0 && (
+          <StoryblokBlock block={block.button[0]} classes="cta-button" />
         )}
       </div>
 
       <div class="max-w-[1016px] mx-auto px-6">
-        {blok.partners && blok.partners.length > 0 && (
-          <StoryblokComponent blok={blok.partners[0]} />
+        {block.partners && block.partners.length > 0 && (
+          <StoryblokBlock block={block.partners[0]} />
         )}
       </div>
 

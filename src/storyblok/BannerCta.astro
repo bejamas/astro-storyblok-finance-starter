@@ -1,25 +1,23 @@
 ---
-import { storyblokEditable } from '@storyblok/astro'
-import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
-const { blok } = Astro.props
+import { StoryblokBlock } from './index.js'
+const { block, editable } = Astro.props
 ---
 
-<section {
-  ...storyblokEditable(blok)}
+<section {...editable}
   class="bg-no-repeat bg-cover bg-center"
-  style={`background-image: ${blok.image.filename ? `url('${blok.image.filename}/m/1440x0/filters:quality(90)')` : ''}`}
+  style={`background-image: ${block.image.filename ? `url('${block.image.filename}/m/1440x0/filters:quality(90)')` : ''}`}
   >
 
   <div class="container mx-auto flex flex-col justify-between items-start min-h-[80vh] py-16 px-6">
 
-    {blok.heading && blok.heading.length > 0 && (
-      <StoryblokComponent blok={blok.heading[0]} />
+    {block.heading && block.heading.length > 0 && (
+      <StoryblokBlock block={block.heading[0]} />
     )}
 
     <div class="max-w-[474px]">
-      <h2 class="text-white text-3xl md:text-5xl leading-[120%] font-adamina mb-10">{blok.headline}</h2>
-      {blok.button && blok.button.length > 0 && (
-        <StoryblokComponent blok={blok.button[0]} />
+      <h2 class="text-white text-3xl md:text-5xl leading-[120%] font-adamina mb-10">{block.headline}</h2>
+      {block.button && block.button.length > 0 && (
+        <StoryblokBlock block={block.button[0]} />
       )}
     </div>
   </div>

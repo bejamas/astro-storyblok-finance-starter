@@ -1,4 +1,4 @@
-import { renderRichText } from '@storyblok/astro'
+import { renderRichText } from '@storyblok/richtext'
 
 // Renderers receive `children` as the already-rendered string of the node's content.
 // Lists re-render each item individually so every item gets its own prefix

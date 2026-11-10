@@ -1,26 +1,25 @@
 ---
-import { storyblokEditable } from '@storyblok/astro'
 import { getReportList } from '../utils/api'
 import ReportCard from '../components/ReportCard.astro'
 
-const { blok, language } = Astro.props
+const { block, editable, language } = Astro.props
 const reports = await getReportList(language)
 ---
 
-<section {...storyblokEditable(blok)} class="bg-black">
+<section {...editable} class="bg-black">
 
   <div
     class="min-h-[44vh] flex flex-col justify-center items-center bg-no-repeat bg-cover bg-center"
-    style={`background-image: ${blok.image.filename ? `url(${blok.image.filename}/m/2560x0)` : ''}`}
+    style={`background-image: ${block.image.filename ? `url(${block.image.filename}/m/2560x0)` : ''}`}
     >
     <div class="max-w-[624px] mx-auto px-6 flex flex-col justify-center items-center pt-14">
       <h1 class="text-white text-3xl md:text-5xl leading-[120%] text-center font-adamina mb-4">
-        {blok.title}
+        {block.title}
       </h1>
 
-      {blok.lead && (
+      {block.lead && (
         <p class="text-center text-white opacity-65 leading-[24px]">
-          {blok.lead}
+          {block.lead}
         </p>
       )}
     </div>

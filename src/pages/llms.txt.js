@@ -1,13 +1,11 @@
-import { storyblokApi } from '@storyblok/astro/client'
+import { getAllStories } from '../utils/api'
 import { extractStoryMeta } from '../utils/extractStoryMeta'
-import isPreview from '../utils/isPreview'
 
 export const GET = async () => {
 	try {
-		const stories = await storyblokApi.getAll('cdn/stories', {
+		const stories = await getAllStories({
 			sort_by: 'position:desc',
-			version: isPreview() ? 'draft' : 'published',
-      excluding_slugs: 'settings/*',
+			excluding_slugs: 'settings/*',
 		})
 
 		// Filters all stories not in folders, such as Home and About

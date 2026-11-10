@@ -1,17 +1,16 @@
 ---
-import { storyblokEditable } from '@storyblok/astro'
-const { blok } = Astro.props
+const { block, editable } = Astro.props
 ---
 
-<section {...storyblokEditable(blok)}>
+<section {...editable}>
   <div class="container mx-auto px-6">
-    {blok.title && <h3 class="text-black text-3xl md:text-5xl leading-[120%] font-adamina mb-4 max-w-[580px]">{blok.title}</h3>}
-    <p class="mb-8 text-black opacity-65">{blok.lead}</p>
+    {block.title && <h3 class="text-black text-3xl md:text-5xl leading-[120%] font-adamina mb-4 max-w-[580px]">{block.title}</h3>}
+    <p class="mb-8 text-black opacity-65">{block.lead}</p>
   </div>
 
   <div class="container mx-auto px-6">
     <ul class="grid grid-cols-1 md:grid-cols-4 gap-5">
-      {blok.stats && blok.stats.map((stat) => (
+      {block.stats && block.stats.map((stat) => (
         <li class={`p-8 ${stat.primary === true ? 'bg-primary text-white' : 'bg-white text-black'}`}>
           <span class="block text-5xl md:text-4xl lg:text-5xl xlg:text-6xl font-adamina capitalize mb-20 md:mb-36">{stat.number}</span>
           <h3 class="opacity-65">{stat.label}</h3>

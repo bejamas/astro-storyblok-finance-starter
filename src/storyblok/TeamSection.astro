@@ -1,15 +1,14 @@
 ---
-import { storyblokEditable } from '@storyblok/astro'
 import { Image } from 'astro:assets'
-const { blok } = Astro.props
+const { block, editable } = Astro.props
 ---
 
-<section {...storyblokEditable(blok)}>
+<section {...editable}>
   <div class="container mx-auto px-6">
-    {blok.title && <h2 class="text-3xl md:text-5xl text-center font-adamina mb-16 px-6">{blok.title}</h2>}
+    {block.title && <h2 class="text-3xl md:text-5xl text-center font-adamina mb-16 px-6">{block.title}</h2>}
 
     <ul class="grid md:grid-cols-2 gap-y-16 gap-x-5">
-      {blok.members && blok.members.map((member) => (
+      {block.members && block.members.map((member) => (
         <li class="relative group">
           <Image
             class="block w-full"

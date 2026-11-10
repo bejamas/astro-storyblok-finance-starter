@@ -1,14 +1,11 @@
 ---
-import { storyblokEditable } from '@storyblok/astro'
-import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+import { StoryblokBlock } from './index.js'
 
-const { blok, language } = Astro.props
+const { block, editable, language } = Astro.props
 ---
 
-<main {...storyblokEditable(blok)} class="has-[>*:nth-child(3)]:space-y-16 has-[>*:nth-child(3)]:md:space-y-32">
+<main {...editable} class="has-[>*:nth-child(3)]:space-y-16 has-[>*:nth-child(3)]:md:space-y-32">
   {
-    blok.body?.map((blok) => {
-      return <StoryblokComponent language={language} blok={blok} />
-    })
+    block.body?.map((child) => <StoryblokBlock block={child} language={language} />)
   }
 </main>

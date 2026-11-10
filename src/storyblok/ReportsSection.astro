@@ -1,18 +1,17 @@
 ---
-import { storyblokEditable } from '@storyblok/astro'
-import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+import { StoryblokBlock } from './index.js'
 import ReportCard from '../components/ReportCard.astro'
-const { blok, language } = Astro.props
+const { block, editable, language } = Astro.props
 ---
 
-<section {...storyblokEditable(blok)} class="bg-black">
+<section {...editable} class="bg-black">
   <div class="container mx-auto px-6 py-24 flex flex-col items-center gap-16">
-    {blok.title && <h2 class="text-white text-3xl md:text-5xl text-center leading-[120%] font-adamina mb-16 px-6">{blok.title}</h2>}
+    {block.title && <h2 class="text-white text-3xl md:text-5xl text-center leading-[120%] font-adamina mb-16 px-6">{block.title}</h2>}
 
     <ul class="grid md:grid-cols-3 gap-6">
       {
-        blok.reports.length &&
-          blok.reports.map((report) => {
+        block.reports.length &&
+          block.reports.map((report) => {
             report.content.slug = report.slug
             return (
               <li>
@@ -23,8 +22,8 @@ const { blok, language } = Astro.props
       }
     </ul>
 
-    {blok.button && blok.button.length > 0 && (
-      <StoryblokComponent blok={blok.button[0]} />
+    {block.button && block.button.length > 0 && (
+      <StoryblokBlock block={block.button[0]} />
     )}
   </div>
 </section>
