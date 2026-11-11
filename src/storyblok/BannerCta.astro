@@ -15,7 +15,7 @@ const { block, editable } = Astro.props
     )}
 
     <div class="max-w-[474px]">
-      <h2 class="text-white text-3xl md:text-5xl leading-[120%] font-adamina mb-10">{block.headline}</h2>
+      <h2 class="text-white text-3xl md:text-5xl leading-[120%] font-heading mb-10">{block.headline}</h2>
       {block.button && block.button.length > 0 && (
         <StoryblokBlock block={block.button[0]} />
       )}

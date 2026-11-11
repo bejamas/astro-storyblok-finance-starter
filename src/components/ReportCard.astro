@@ -1,6 +1,7 @@
 ---
 import { getTransLink } from '../utils/i18n'
 import { Image } from 'astro:assets'
+import ArrowLink from './ArrowLink.astro'
 const { language, report } = Astro.props
 ---
 
@@ -19,7 +20,5 @@ const { language, report } = Astro.props
       {report.title}
     </a>
   </h3>
-  <a href={getTransLink(language, `/report/${report.slug}`)} class="absolute top-[67px] -right-[40px] w-[96px] h-[96px] flex justify-center items-center rounded-full bg-primary opacity-0 scale-75 -translate-x-5 pointer-events-none transition-all duration-[400ms] ease-elastic group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 group-hover:pointer-events-auto hover:scale-110">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"><path fill="#fff" fill-rule="evenodd" d="M10.293 16.707a1 1 0 0 0 1.414 0l6-6a1 1 0 0 0 0-1.414l-6-6a1 1 0 0 0-1.414 1.414L14.586 9H3a1 1 0 0 0 0 2h11.586l-4.293 4.293a1 1 0 0 0 0 1.414Z" clip-rule="evenodd"/></svg>
-  </a>
+  <ArrowLink reveal href={getTransLink(language, `/report/${report.slug}`)} class="top-[67px] -right-[40px]" />
 </article>

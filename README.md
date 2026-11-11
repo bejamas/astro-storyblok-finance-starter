@@ -19,6 +19,7 @@ This template is powered by a modern, headless stack: Astro, Storyblok, Netlify,
 - Netlify
 - PostHog
 - Tailwind v4
+- [bejamas/ui](https://ui.bejamas.com) components with [@data-slot](https://data-slot.com) primitives
 
 ## Features
 - ✅ Modular Content Model – Hero, features, stats, testimonials, and more
@@ -75,6 +76,18 @@ bun run build
 # Preview production build
 bun run preview
 ```
+
+## UI Components
+The UI is built on [bejamas/ui](https://ui.bejamas.com): Astro components copied into `src/components/ui`, with interactive behavior (mobile navigation, language menu) provided by [@data-slot](https://data-slot.com) primitives.
+
+```bash
+# Add another component
+bunx bejamas@latest add accordion
+```
+
+- Design tokens (`--primary`, `--background`, …) live in `src/styles/global.css`.
+- `bejamas add` re-inserts a global `* { border-border outline-ring/50 }` rule into `global.css`. This template scopes that rule to `[data-slot]`, so remove the re-inserted copy after adding a component.
+- Blocks reset the component defaults they don't use through the shared classes in `src/lib/ui.ts`.
 
 ## Contributing
 Contributions are welcome!

@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "bejamas/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 @plugin "@tailwindcss/typography";
 
 @view-transition {
@@ -35,22 +39,69 @@
   }
 }
 
-@theme {
-  --font-inter: "Inter", sans-serif;
-  --font-adamina: "Adamina", sans-serif;
+@theme inline {
+  --font-sans: "Inter", sans-serif;
+  --font-heading: var(--font-heading, var(--font-sans));
 
-  --color-background: #F4F5F5;
-  --color-foreground: #000;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
 
-  --color-primary: #193EAF;
-  --color-primary-foreground: #fff;
+/* bejamas/ui tokens. The site is light-only, so there is no .dark block.
+   Layout.astro overrides --primary on <body> from the Storyblok "colors" datasource. */
+:root {
+  --font-heading: "Adamina", sans-serif;
 
-  --color-card: #FFF;
-  --color-card-foreground: var(--color-foreground);
+  --background: #F4F5F5;
+  --foreground: #000;
+  --card: #FFF;
+  --card-foreground: var(--foreground);
+  --popover: #FFF;
+  --popover-foreground: var(--foreground);
+  --primary: #193EAF;
+  --primary-foreground: #fff;
+  --secondary: #FFF;
+  --secondary-foreground: #000;
+  --muted: #F4F5F5;
+  --muted-foreground: #595959;
+  --accent: #F4F5F5;
+  --accent-foreground: #000;
+  --destructive: oklch(0.58 0.22 27);
+  --border: #e3e3e333;
+  --input: #e3e3e3;
+  --ring: oklch(0.708 0 0);
+}
 
-  --color-muted: #595959;
-
-  --color-border: #e3e3e333;
+@layer base {
+  /* Scoped to bejamas components so plain elements keep Tailwind's currentColor borders */
+  [data-slot] {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  .cn-font-heading {
+    @apply font-heading;
+  }
+  html {
+    @apply font-sans;
+  }
 }
 
 html {
@@ -75,7 +126,7 @@ html {
   border-width: 0;
 }
 
-body:has(#header.is-open){
+body:has(#header [data-slot="hamburger-menu"][data-state="open"]) {
   overflow: hidden;
 }
 
