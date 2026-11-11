@@ -2,9 +2,6 @@
 @import "tw-animate-css";
 @import "bejamas/tailwind.css";
 
-/* Docs quote class names; keep them out of the generated CSS */
-@source not "../../*.md";
-
 @custom-variant dark (&:is(.dark *));
 @plugin "@tailwindcss/typography";
 
